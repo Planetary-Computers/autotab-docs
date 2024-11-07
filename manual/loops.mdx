@@ -1,0 +1,79 @@
+---
+title: 'Loops'
+description: "Repeat complex action sequences over lists of items."
+icon: 'arrows-spin'
+---
+
+Most repetitive tasks involve doing the same steps repeatedly for a set of similar items, e.g., processing a list of invoices or going through a list of contacts in a CRM. With Autotab, you can teach Autotab what to do for the first item, and then Autotab will do it for all the other items.
+
+## Basics
+
+All loops have steps inside the loop which will be run for each item in the list. Steps inside the loop will be visually indented in the side panel.
+
+For all loops you must create the loop before teaching Autotab how to do the steps inside the loop.
+
+## Types of Loops
+
+There are three different types of loops:
+
+### Page Loop
+
+Use a page loop to repeat steps for a set of items visible on the page, e.g. a list of search results on a page.
+
+To create a page loop, click and drag over 2-5 of the elements that you want to loop over on the page and select "Create Loop". Autotab will first try to find the right elements in the area you showed it, and then generalize to the entire page in a second step.
+
+Once Autotab has created the loop, you can show it how to do the steps for the first item in the list. You'll know Autotab is ready when it is highlighting the first item in the list with a spotlight.
+
+If Autotab got the list wrong, or you just want to double check, click "Modify List" at the top left of the page with the loop in it to see what Autotab sees.
+
+Once you're done showing Autotab all the steps for the first item in the list, click "Run loop for next item" button at the top left to have Autotab show you what it has learned! It is usually a good idea to have Autotab run the loop a few times to make sure it has understood the steps correctly for items it has never seen before.
+
+export const EmbeddedVideo = ({ children, url }) => (
+  <div
+    style={{
+      position: "relative",
+      paddingBottom: "62.456140350877185%",
+      height: 0,
+    }}
+  >
+    {children}
+    <iframe
+      src={url}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    ></iframe>
+  </div>
+);
+
+<EmbeddedVideo url="https://www.loom.com/embed/f213d8a48a5041e79718c11db9f5ef2e?sid=b3ec716d-1091-4dee-b7df-2ec67567ded0"></EmbeddedVideo>{" "}
+
+### Data Loop
+
+Loop over data in the scratchpad (e.g. a list extracted from another page or data loaded from a CSV file).
+
+<EmbeddedVideo url="https://www.loom.com/embed/cf1d0ca8219c4b2e822a287bbf834b34?sid=e0ec1c90-a740-43c5-aa0f-53f9fe93ca20"></EmbeddedVideo>
+
+### Advanced Loop
+
+Loop until a condition is met.
+
+<EmbeddedVideo url="https://www.loom.com/embed/cb402effef52498998f9d08a3f80e670?sid=206223d6-c430-4335-bc3c-01c9a6ded55e"></EmbeddedVideo>
+
+## Loop Controls
+
+### Stop Looping
+
+To stop looping in certain cases (e.g., if Autotab encounters an error state), you can add a "stop looping" step that will move on to the first step after the loop if it is run. To stop looping after a certain number of items have been processed, you can set the maximum number of items to go over in the settings for the loop step.
+
+### Continue to Next in Loop
+
+You can add a "continue to next in loop" step that will move on to the top of the loop for the next item in the list if it is run. This is useful, for example, if you don't want to process certain items in a list.
+
+### Scrubber
+
+Once the loop has been set up (run once in the current session), you can step into the loop by moving the scrubber between two steps that are both inside the loop. You can always tell if your scrubber is in the loop by checking if it is indented on the left.

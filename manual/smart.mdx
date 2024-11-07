@@ -1,0 +1,38 @@
+---
+title: 'Smart Click'
+description: "Interact with elements based on dynamic context."
+icon: 'arrow-pointer'
+---
+
+## Getting smart
+
+Sometimes the element Autotab needs to interact with changes based on the context. For example, a patient intake form might specify a patient's age as a number, but the form Autotab is entering the age into is a selection between 5 different age ranges.
+
+To record a Smart Click, first click and drag over the area that has all the elements you might want Autotab to click on.
+
+Then select "Smart Click" and describe what you want Autotab to do. You can reference variables from the scratchpad by using the `@` symbol.
+
+export const EmbeddedVideo = ({ children, url }) => (
+  <div
+    style={{
+      position: "relative",
+      paddingBottom: "62.456140350877185%",
+      height: 0,
+      marginBottom: "var(--ifm-leading)",
+    }}
+  >
+    {children}
+    <iframe
+      src={url}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    ></iframe>
+  </div>
+);
+
+<EmbeddedVideo url="https://www.loom.com/embed/232474a6811243a78715d140fc11bd9a?sid=a934190f-61a4-40dd-93b4-c873ef03d023"></EmbeddedVideo>{" "}

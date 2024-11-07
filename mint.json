@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Autotab Documentation",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/logo.png",
+    "light": "/logo/logo.png"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo.svg",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
@@ -33,19 +33,15 @@
   ],
   "anchors": [
     {
+      "name": "API Reference",
+      "openapi": "/openapi/openapi.json",
+      "url": "api-reference",
+      "icon": "square-terminal"
+    },
+    {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://docs.autotab.com/"
     }
   ],
   "navigation": [
@@ -53,33 +49,25 @@
       "group": "Get Started",
       "pages": [
         "introduction",
-        "quickstart",
-        "development"
+        "quickstart"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Core Concepts",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "manual/loops",
+        "manual/inputs",
+        "manual/scratchpad",
+        "manual/gsheets",
+        "manual/conditionals",
+        "manual/instruct",
+        "manual/smart"
       ]
     },
     {
       "group": "API Documentation",
       "pages": [
         "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
       ]
     }
   ],

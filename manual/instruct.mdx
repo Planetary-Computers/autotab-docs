@@ -1,0 +1,46 @@
+---
+title: 'Instruct'
+description: "Full agentic mode for complex dynamic acitons."
+icon: 'command'
+---
+
+With instruct, you can create agentic blocks that handle specific sub-tasks. This is useful when you have a few steps in a skill that are hard to explicitly teach all the steps for, but it is easy to describe the goal of the sub-task.
+
+We recommend using instruct only for specific sub-tasks. Otherwise, the skill may be less reliable and it can be harder to understand exactly what Autotab will do.
+
+## Examples
+
+### Moving a date forward in a calendar
+
+If you want to pick a date 6 weeks from today in a calendar, you sometimes need to move the month forward 1 or 2 times. Instead of explicitly defining how many times to move the month forward and then picking the date, you can just describe the goal: "Pick a date 6 weeks from today".
+
+export const EmbeddedVideo = ({ children, url }) => (
+  <div
+    style={{
+      position: "relative",
+      paddingBottom: "62.456140350877185%",
+      height: 0,
+      marginBottom: "var(--ifm-leading)",
+    }}
+  >
+    {children}
+    <iframe
+      src={url}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    ></iframe>
+  </div>
+);
+
+<EmbeddedVideo url="https://www.loom.com/embed/8d74556a2be54c5eb2885589e232dadf?sid=fa3b3695-b63f-4e73-92b4-63a097af27d6"></EmbeddedVideo>
+
+### Completing an action that sometimes requires different steps - Clicking connect on LinkedIn
+
+Different profiles on LinkedIn require different steps to click connect. Some show a connect button on the profile, others require you to click the more dots first. Before, you would have had to teach Autotab what to do in each case. Now you can just describe the goal: "Click connect" and instruct will take care of the rest.
+
+<EmbeddedVideo url="https://www.loom.com/embed/a2a1eb48c67d4d55abe744a930df46fc?sid=64157a34-27b8-4ab2-a3ff-be091f0dab18"></EmbeddedVideo>
