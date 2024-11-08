@@ -1,0 +1,729 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Autotab API",
+        "description": "AI that does your repetitive work end to end, with superhuman reliability.",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "https://api.autotab.com/v1",
+            "description": "Autotab API"
+        }
+    ],
+    "paths": {
+        "/run/": {
+            "post": {
+                "tags": [
+                    "run"
+                ],
+                "summary": "Start",
+                "operationId": "start",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RunSkillRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "$ref": "#/components/schemas/RunSession"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "title": "Response Start"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import autotab\nfrom autotab import RunSkillRequest\nfrom autotab.rest import ApiException\nfrom pprint import pprint\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\ntry:\n    run = await autotab.RunApi(client).start(\n        run_skill_request=RunSkillRequest(\n            skill_id=\"skill_a6738f77-afc2-454e-a6d6-207caa8d145f\",\n            inputs={\n                \"query\": \"OpenAI news\"\n            }\n        )\n    )\nexcept ApiException as e:\n    print(f\"Exception: {e})\n"
+                    }
+                ]
+            }
+        },
+        "/run/list": {
+            "get": {
+                "tags": [
+                    "run"
+                ],
+                "summary": "List Runs",
+                "operationId": "list",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "skill_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "The skill to list run sessions for",
+                            "title": "Skill Id"
+                        },
+                        "description": "The skill to list run sessions for"
+                    },
+                    {
+                        "name": "state_filter",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RunSessionState"
+                                    }
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "The state filter to list run sessions for",
+                            "title": "State Filter"
+                        },
+                        "description": "The state filter to list run sessions for"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/RunSession"
+                                    },
+                                    "title": "Response List"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/run/{id}": {
+            "get": {
+                "tags": [
+                    "run"
+                ],
+                "summary": "Retrieve",
+                "operationId": "retrieve",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "$ref": "#/components/schemas/RunSessionWithData"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "title": "Response Retrieve"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/run/{id}/cancel": {
+            "post": {
+                "tags": [
+                    "run"
+                ],
+                "summary": "Cancel",
+                "operationId": "cancel",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "title": "Response Cancel"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/skill/list": {
+            "get": {
+                "tags": [
+                    "skill"
+                ],
+                "summary": "List Skills",
+                "operationId": "list",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Skill"
+                                    },
+                                    "type": "array",
+                                    "title": "Response List"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/skill/{id}": {
+            "get": {
+                "tags": [
+                    "skill"
+                ],
+                "summary": "Get Skill",
+                "operationId": "retrieve",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Skill"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "title": "Response Retrieve"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Environment": {
+                "type": "string",
+                "enum": [
+                    "client",
+                    "cloud"
+                ],
+                "title": "Environment"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "Input": {
+                "properties": {
+                    "json_key": {
+                        "type": "string",
+                        "title": "Json Key"
+                    },
+                    "id": {
+                        "type": "string",
+                        "title": "Id"
+                    },
+                    "data_type": {
+                        "$ref": "#/components/schemas/VariableDataType"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "json_key",
+                    "id",
+                    "data_type"
+                ],
+                "title": "Input"
+            },
+            "RunSession": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "Id"
+                    },
+                    "skill_id": {
+                        "type": "string",
+                        "title": "Skill Id"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "title": "Owner"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    },
+                    "environment": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/Environment"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Start Time"
+                    },
+                    "end_time": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "End Time"
+                    },
+                    "state": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/RunSessionState"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "skill_id",
+                    "owner",
+                    "created_at",
+                    "environment",
+                    "start_time"
+                ],
+                "title": "RunSession"
+            },
+            "RunSessionState": {
+                "type": "string",
+                "enum": [
+                    "play",
+                    "pause",
+                    "finish",
+                    "reset",
+                    "cancel",
+                    "timeout",
+                    "editing"
+                ],
+                "title": "RunSessionState"
+            },
+            "RunSessionWithData": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "Id"
+                    },
+                    "skill_id": {
+                        "type": "string",
+                        "title": "Skill Id"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "title": "Owner"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    },
+                    "environment": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/Environment"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "start_time": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Start Time"
+                    },
+                    "end_time": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "End Time"
+                    },
+                    "state": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/RunSessionState"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "inputs": {
+                        "anyOf": [
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Inputs"
+                    },
+                    "data": {
+                        "anyOf": [
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Data"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "skill_id",
+                    "owner",
+                    "created_at",
+                    "environment",
+                    "start_time"
+                ],
+                "title": "RunSessionWithData"
+            },
+            "RunSkillRequest": {
+                "properties": {
+                    "skill_id": {
+                        "type": "string",
+                        "title": "Skill Id"
+                    },
+                    "inputs": {
+                        "anyOf": [
+                            {
+                                "additionalProperties": {
+                                    "type": "string"
+                                },
+                                "type": "object"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Inputs"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "skill_id"
+                ],
+                "title": "RunSkillRequest"
+            },
+            "Skill": {
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "Id"
+                    },
+                    "name": {
+                        "type": "string",
+                        "title": "Name"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "title": "Owner"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    },
+                    "last_modified_at": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Last Modified At"
+                    },
+                    "inputs": {
+                        "items": {
+                            "$ref": "#/components/schemas/Input"
+                        },
+                        "type": "array",
+                        "title": "Inputs",
+                        "default": []
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "owner",
+                    "created_at",
+                    "last_modified_at"
+                ],
+                "title": "Skill"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "VariableDataType": {
+                "type": "string",
+                "enum": [
+                    "string",
+                    "number",
+                    "boolean",
+                    "array",
+                    "object",
+                    "file",
+                    "tab"
+                ],
+                "title": "VariableDataType"
+            }
+        },
+        "securitySchemes": {
+            "HTTPBearer": {
+                "type": "http",
+                "description": "Your Autotab API key",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
