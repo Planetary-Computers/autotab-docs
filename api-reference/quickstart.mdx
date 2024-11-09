@@ -17,6 +17,12 @@ pip install autotab-ai
 
 </CodeGroup>
 
+#### Get your API Key
+In the Autotab app, navigate to Settings and enable the Developer API. Then, copy your API Key.
+
+Now that you have enabled the Developer API, go back to the Dashboard and select the Skill you want to run with the API. You should see the id in the top right corner.
+
+
 ### Run your skill
 
 <CodeGroup>
@@ -47,7 +53,6 @@ main();
 import autotab
 from autotab import RunSkillRequest
 from autotab.rest import ApiException
-from pprint import pprint
 
 
 client = autotab.Client(

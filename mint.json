@@ -5,7 +5,6 @@
     "dark": "/logo/autotab.svg",
     "light": "/logo/autotab-light.svg"
   },
-  "theme": "prism",
   "favicon": "/logo.png",
   "colors": {
     "primary": "#4A5DFF",
