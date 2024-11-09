@@ -15,7 +15,7 @@
         "/run/": {
             "post": {
                 "tags": [
-                    "run"
+                    "Run"
                 ],
                 "summary": "Start",
                 "operationId": "start",
@@ -69,8 +69,12 @@
                 ],
                 "x-codeSamples": [
                     {
+                        "lang": "Javascript",
+                        "source": "import { Configuration, RunApi } from 'autotab';\n\nconst runClient = new RunApi(new Configuration({\n    apiKey: process.env['AUTOTAB_API_KEY'],\n}));\n\nasync function main() {\n  const run = await runClient.start({\n    runSkillRequest: {\n        skillId: \"skill_fe517503-384a-45c5-87a3-94f98126e626\"\n    }\n  });\n  \n  console.log(\"result:\", run);\n}\n\nmain();"
+                    },
+                    {
                         "lang": "Python",
-                        "source": "import autotab\nfrom autotab import RunSkillRequest\nfrom autotab.rest import ApiException\nfrom pprint import pprint\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\ntry:\n    run = await autotab.RunApi(client).start(\n        run_skill_request=RunSkillRequest(\n            skill_id=\"skill_a6738f77-afc2-454e-a6d6-207caa8d145f\",\n            inputs={\n                \"query\": \"OpenAI news\"\n            }\n        )\n    )\nexcept ApiException as e:\n    print(f\"Exception: {e})\n"
+                        "source": "import autotab\nfrom autotab import RunSkillRequest\nfrom autotab.rest import ApiException\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\ntry:\n    run = await autotab.RunApi(client).start(\n        run_skill_request=RunSkillRequest(\n            skill_id=\"skill_a6738f77-afc2-454e-a6d6-207caa8d145f\",\n            inputs={\n                \"query\": \"OpenAI news\"\n            }\n        )\n    )\nexcept ApiException as e:\n    print(f\"Exception: {e})\n"
                     }
                 ]
             }
@@ -78,9 +82,9 @@
         "/run/list": {
             "get": {
                 "tags": [
-                    "run"
+                    "Run"
                 ],
-                "summary": "List Runs",
+                "summary": "List",
                 "operationId": "list",
                 "security": [
                     {
@@ -156,13 +160,23 @@
                             }
                         }
                     }
-                }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Javascript",
+                        "source": "\nimport { Configuration, RunApi } from 'autotab';\n\nconst runClient = new RunApi(new Configuration({\n    apiKey: process.env['AUTOTAB_API_KEY'],\n}));\n\nasync function main() {\n  const runs = await runClient.list();\n  console.log(\"runs:\", runs);\n}\n\nmain();"
+                    },
+                    {
+                        "lang": "Python",
+                        "source": "import autotab\nfrom autotab.rest import ApiException\nfrom pprint import pprint\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\nruns = await autotab.RunApi(client).list()\n"
+                    }
+                ]
             }
         },
         "/run/{id}": {
             "get": {
                 "tags": [
-                    "run"
+                    "Run"
                 ],
                 "summary": "Retrieve",
                 "operationId": "retrieve",
@@ -214,13 +228,23 @@
                             }
                         }
                     }
-                }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Javascript",
+                        "source": "\nimport { Configuration, RunApi } from 'autotab';\n\nconst runClient = new RunApi(new Configuration({\n    apiKey: process.env['AUTOTAB_API_KEY'],\n}));\n\nasync function main() {\n  const run = await runClient.retrieve({\n    id: \"run_344ed4ce-6c14-4b13-96b5-3bbb2000c2e5\"\n  });\n}\n\nmain();"
+                    },
+                    {
+                        "lang": "Python",
+                        "source": "import autotab\nfrom autotab.rest import ApiException\nfrom pprint import pprint\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\ntry:\n    run = await autotab.RunApi(client).retrieve(\n        id=\"run_344ed4ce-6c14-4b13-96b5-3bbb2000c2e5\"\n    )\n    print(f\"state: {run.state} output: {run.data}\")\nexcept ApiException as e:\n    print(f\"Exception: {e})\n"
+                    }
+                ]
             }
         },
         "/run/{id}/cancel": {
             "post": {
                 "tags": [
-                    "run"
+                    "Run"
                 ],
                 "summary": "Cancel",
                 "operationId": "cancel",
@@ -272,15 +296,25 @@
                             }
                         }
                     }
-                }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import autotab\nfrom autotab.rest import ApiException\nfrom pprint import pprint\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\ntry:\n    await autotab.RunApi(client).cancel(\n        id=\"run_344ed4ce-6c14-4b13-96b5-3bbb2000c2e5\"\n    )\nexcept ApiException as e:\n    print(f\"Exception: {e})"
+                    },
+                    {
+                        "lang": "Javascript",
+                        "source": "\nimport { Configuration, RunApi } from 'autotab';\n\nconst runClient = new RunApi(new Configuration({\n    apiKey: process.env['AUTOTAB_API_KEY'],\n}));\n\nasync function main() {\n  await runClient.cancel({\n    id: \"run_344ed4ce-6c14-4b13-96b5-3bbb2000c2e5\"\n  });\n}\n\nmain();"
+                    }
+                ]
             }
         },
         "/skill/list": {
             "get": {
                 "tags": [
-                    "skill"
+                    "Skill"
                 ],
-                "summary": "List Skills",
+                "summary": "List",
                 "operationId": "list",
                 "responses": {
                     "200": {
@@ -305,15 +339,25 @@
                     {
                         "HTTPBearer": []
                     }
+                ],
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import autotab\nfrom autotab.rest import ApiException\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\ntry:\n    skills = await autotab.SkillApi(client).list()\n    print(f\"skills: {\"\\n\".join([skill.model_dump_json(indent=2) for skill in skills])}\")\nexcept ApiException as e:\n    print(f\"Exception: {e})\n"
+                    },
+                    {
+                        "lang": "Javascript",
+                        "source": "import { Configuration, SkillApi } from 'autotab';\n\nconst skillClient = new SkillApi(new Configuration({\n    apiKey: process.env['AUTOTAB_API_KEY'],\n}));\n\nasync function main() {\n  const skills = await skillClient.list();\n  console.log(\"skills:\", skills);\n}\n\nmain();"
+                    }
                 ]
             }
         },
         "/skill/{id}": {
             "get": {
                 "tags": [
-                    "skill"
+                    "Skill"
                 ],
-                "summary": "Get Skill",
+                "summary": "Retrieve",
                 "operationId": "retrieve",
                 "security": [
                     {
@@ -363,7 +407,17 @@
                             }
                         }
                     }
-                }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Python",
+                        "source": "import autotab\nfrom autotab.rest import ApiException\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\ntry:\n    skill = await autotab.SkillApi(client).retrieve(\n        id=\"skill_923d8f38-be0d-4637-9fbe-46ec9cb48312\"\n    )\n    print(f\"skill: {skill.model_dump_json(indent=2)}\")\nexcept ApiException as e:\n    print(f\"Exception: {e})\n"
+                    },
+                    {
+                        "lang": "Javascript",
+                        "source": "import { Configuration, SkillApi } from 'autotab';\n\nconst skillClient = new SkillApi(new Configuration({\n    apiKey: process.env['AUTOTAB_API_KEY'],\n}));\n\nasync function main() {\n  const skill = await skillClient.retrieve({\n    id: \"skill_923d8f38-be0d-4637-9fbe-46ec9cb48312\"\n  });\n  \n  console.log(\"skill:\", skill);\n}\n\nmain();"
+                    }
+                ]
             }
         }
     },

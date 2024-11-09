@@ -8,7 +8,7 @@ logger = logging.getLogger()
 
 lang_extension_lookup = {
     '.py': 'Python',
-    '.ts': 'Typescript',
+    '.ts': 'Javascript',
 }
 
 def add_examples(openapi_schema: dict, examples_dir: str):
@@ -18,7 +18,6 @@ def add_examples(openapi_schema: dict, examples_dir: str):
         if file_path.suffix in lang_extension_lookup:
             parts = file_path.stem.split('-')
             if len(parts) >= 2:
-                breakpoint()
                 _path = '/'.join(parts[:-1]) if len(parts[:-1]) > 1 else parts[0] + "/"
                 route_method_schema = openapi_schema['paths']['/' + _path][parts[-1]]
                 code_samples = route_method_schema.get('x-codeSamples', [])

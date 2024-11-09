@@ -1,7 +1,6 @@
 import autotab
 from autotab import RunSkillRequest
 from autotab.rest import ApiException
-from pprint import pprint
 
 
 client = autotab.Client(

@@ -1,0 +1,140 @@
+---
+title: 'Webhooks'
+description: 'Handle run completion with webhooks'
+---
+
+Configure webhooks to handle run completion events in real time.
+
+<CodeGroup>
+
+```typescript node
+import express, { Request, Response } from 'express';
+import bodyParser from 'body-parser';
+import crypto from 'crypto';
+import dotenv from 'dotenv';
+import autotab, { RunSession, RunSessionState } from 'autotab';
+
+dotenv.config();
+
+const WEBHOOK_SECRET = process.env.AUTOTAB_WEBHOOK_SECRET;
+const app = express();
+
+app.use(bodyParser.raw({ type: 'application/json' }));
+
+app.post("/webhook/autotab", async (req: Request, res: Response) => {
+    const signature = req.headers['autotab-signature'] as string | undefined;
+    
+    if (!verifySignature(req.body, signature)) {
+        return res.status(401).json({ error: "Invalid signature" });
+    }
+
+    try {
+        const runSession: RunSession = JSON.parse(req.body.toString());
+
+        switch (runSession.state) {
+            case RunSessionState.FINISH:
+                await handleSessionCompleted(runSession);
+                break;
+            case RunSessionState.CANCEL:
+                await handleSessionFailed(runSession);
+                break;
+            case RunSessionState.TIMEOUT:
+                await handleSessionTimedOut(runSession);
+                break;
+            default:
+                console.warn(`Unhandled event type: ${runSession.event}`);
+        }
+
+        res.json({ status: "success" });
+    } catch (e) {
+        console.error("Error processing webhook:", e);
+        res.status(500).json({ error: e.message });
+    }
+});
+
+function verifySignature(requestBody: Buffer, signature: string | undefined): boolean {
+    if (!signature || !WEBHOOK_SECRET) {
+        return false;
+    }
+
+    const expectedSignature = crypto.createHmac('sha256', WEBHOOK_SECRET)
+                                     .update(requestBody)
+                                     .digest('hex');
+
+    return crypto.timingSafeEqual(Buffer.from(expectedSignature), Buffer.from(signature));
+}
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+```
+
+```python python
+from fastapi import FastAPI, HTTPException, Request, status
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from typing import Literal
+import hmac
+import hashlib
+import autotab
+
+WEBHOOK_SECRET = os.environ["AUTOTAB_WEBHOOK_SECRET"]
+
+app = FastAPI()
+
+def verify_signature(request_body: bytes, signature: str | None) -> bool:
+    """Verify the webhook signature (implement if you add signature verification)"""
+    if not signature or not WEBHOOK_SECRET:
+        return False
+    
+    expected = hmac.new(
+        WEBHOOK_SECRET.encode(),
+        request_body,
+        hashlib.sha256
+    ).hexdigest()
+    
+    return hmac.compare_digest(expected, signature)
+    
+@app.post("/webhook/autotab", status_code=status.HTTP_200_OK)
+async def handle_webhook(request: Request):
+    """Handle incoming webhooks from Autotab"""
+    
+    # Get signature from headers (if you implement signature verification)
+    signature = request.headers.get("Autotab-Signature")
+    
+    # Get raw body for signature verification
+    body = await request.body()
+    
+    # Verify signature (optional security measure)
+    if not verify_signature(body, signature):
+        raise WebhookError(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid signature"
+        )
+    
+    try:
+        # Parse the webhook payload
+        run_session = RunSession.model_validate_json(body)
+        
+        # Handle different event types
+        match run_session.state:
+            case RunSessionState.FINISH:
+                await handle_session_completed(run_session)
+            case RunSessionState.CANCEL:
+                await handle_session_failed(run_session)
+            case RunSessionState.TIMEOUT:
+                await handle_session_timed_out(run_session)
+            case _:
+                logger.warning(f"Unhandled event type: {run_session.event}")
+        
+        return JSONResponse(content={"status": "success"})
+        
+    except Exception as e:
+        logger.exception("Error processing webhook")
+        raise WebhookError(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+```
+</CodeGroup>
