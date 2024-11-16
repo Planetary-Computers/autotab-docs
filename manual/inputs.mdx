@@ -1,10 +1,40 @@
 ---
-title: 'Inputs'
-description: 'Inputs are data that you pass into a skill before running it.'
-icon: 'brackets-curly'
+title: "Inputs"
+description: "Inputs are data that you pass into a skill before running it."
+icon: "brackets-curly"
 ---
 
 Inputs are data that you pass into a skill before running it.
+
+## Secrets
+
+Inputs can be marked as secret. Secret inputs will not be shown in the UI, will not be saved in the logs, and will not be sent to any models.
+
+Use secret inputs for sensitive data like API keys, passwords, or other credentials.
+
+export const EmbeddedVideo = ({ children, url }) => (
+  <div
+    style={{
+      position: "relative",
+      paddingBottom: "62.456140350877185%",
+      height: 0,
+      marginBottom: "var(--ifm-leading)",
+    }}
+  >
+    {children}
+    <iframe
+      src={url}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    ></iframe>
+  </div>
+);
+<EmbeddedVideo url="https://www.loom.com/embed/f4ee24df92024991b1cc7c5ca2dc22a5?sid=2c157140-a721-443a-9114-e5283864c591"></EmbeddedVideo>;
 
 ## Structured data
 
