@@ -1,0 +1,35 @@
+---
+title: "Cloud Security"
+description: "Overview of Autotab's cloud security practices."
+icon: "shield"
+---
+
+# How Autotab Protects Your Data
+
+Every time you run an Autotab skill in the cloud, we provision a dedicated virtual machine, completely isolated from other users and Autotab system processes. This isolation ensures that your data remains private and protected, in its own execution environment, throughout the skill's operation. We use enterprise-standard container technology to create and enforce these security boundaries, ensuring that each skill is totally protected from interference or intrusion.
+
+When you provide inputs to your skill, whether through the Autotab App or our API, the data is encrypted, both during transmission and at rest, and is sent directly to the skill's execution environment without passing through Autotab's servers. This architecture ensures that your data remains inaccessible to Autotab employees. Once your skill completes its execution, we automatically destroy all input data and the execution environment, leaving no trace of your sensitive information.
+
+# Secure Access to Running Skills
+
+We've implemented a robust access control system for running skills based on cryptographically unguessable tokens. When you launch a skill, our system generates a unique access token that's bound specifically to your user account. These tokens are stored in a high-security environment that's completely separate from our main systems, ensuring that access credentials cannot be compromised in the event of an attack on our primary infrastructure.
+
+To protect your interactions with running skills, your keyboard and mouse inputs travel directly to the machine running your skill, bypassing Autotab's servers entirely. This design ensures that your interactions with the skill—and the data it accesses—remain private and are never captured or stored.
+
+# Keeping Your Portal Connection Safe
+
+To protect your Portal connections, we've implemented a hardened proxy service that handles all Portal communications. Each running skill gets its own isolated instance of this proxy, which strictly validates and authenticates every message passing through the system, enforcing rigid security protocols and automatically rejecting any communication that doesn't meet our requirements.
+
+For video streaming, we partner with an industry-leading provider that uses a trusted infrastructure vendor and maintains SOC 2 and ISO 27001 certifications. While we don't store the continuous video feed, we do capture periodic screenshots to support the video replay feature in the Autotab App, giving you the ability to review and audit past operations.
+
+# Secure Browser Sessions
+
+When you sync your browser session through the Autotab app, we take extensive precautions to ensure the highest levels of security. Your session data is protected by enterprise-grade encryption during transmission and at rest.
+
+We've designed the session system with a zero-knowledge approach to password security: your passwords never leave your device. Only essential browser cookies and session information are transferred, and this data is encrypted before transmission and stored in dedicated, isolated storage volumes provided by our trusted cloud partners. Each user's session data is stored on a separately provisioned storage volume, ensuring complete isolation under all circumstances.
+
+# Retention Policy
+
+Your most recently uploaded browser session is stored indefinitely in order to ensure that skills invoked through the Autotab API will remain logged in to any web services they need to access. This isolated session storage is encrypted at rest, is protected from access by the main Autotab service and by Autotab employees, and is overwritten and discarded completely whenever you upload a new session.
+
+Otherwise, the data captured and stored by Autotab in the course of executing a Cloud-deployed skill is exactly the same as when running a skill locally on your own device—all other Cloud-specific information is stored ephemerally and is discarded immediately when the run concludes.

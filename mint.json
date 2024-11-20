@@ -69,6 +69,12 @@
         "api-reference/quickstart",
         "api-reference/webhooks"
       ]
+    },
+    {
+      "group": "Security",
+      "pages": [
+        "manual/security"
+      ]
     }
   ],
   "footerSocials": {
