@@ -6,6 +6,20 @@ icon: "brackets-curly"
 
 Inputs are data that you pass into a skill before running it.
 
+## Smart Data Parsing
+
+Input values must be text, but Autotab can intelligently parse structured data out of your input text content (e.g. a list of LinkedIn profile urls) — just check the "Load as data" button.
+
+<img
+  className="block"
+  src="/images/inputs-load-as-data.png"
+  alt="Load as data example"
+/>
+
+For example, if you want to provide a list and have Autotab loop over it, you can write something that looks list-y like, `"['apple', 'banana', 'mango']"` or `apple, banana, mango` and Autotab will parse it into a list for you. The same goes for things like forms, or other data that you want to load in in a more structured way than text.
+
+For an input that has already been created, or one that you want to have Autotab parse in a specific way, you can create a "Reasoning" step that references the input and write a prompt like "Load the data from @input".
+
 ## Secrets
 
 Inputs can be marked as secret. Secret inputs will not be shown in the UI, will not be saved in the logs, and will not be sent to any models.
@@ -36,8 +50,3 @@ export const EmbeddedVideo = ({ children, url }) => (
 );
 
 <EmbeddedVideo url="https://www.loom.com/embed/f4ee24df92024991b1cc7c5ca2dc22a5?sid=2c157140-a721-443a-9114-e5283864c591"></EmbeddedVideo>{" "}
-
-## Structured data
-
-If you have structured data you want to use as an input (e.g. a list of LinkedIn profile urls), you can select "Load as data" when creating the input.
-For an input that has already been created, you can create a "Reasoning" step that references the input and write a prompt like "Load the data from @input".
