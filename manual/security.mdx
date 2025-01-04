@@ -1,0 +1,42 @@
+---
+title: "Cloud Security"
+description: "Overview of Autotab's cloud security practices."
+icon: "shield"
+---
+
+# Data Isolation and Protection
+
+Autotab skills run in the cloud operate on dedicated virtual machines, fully isolated from other users and internal Autotab processes. This isolation ensures that your data remains private and protected, in its own execution environment accessible only via a secure Portal connection, throughout the skill's operation. Upon the completion of skill execution, all related data and the execution environment itself are immediately destroyed, ensuring no residual information is left behind.
+
+# Authentication
+
+By default, authentication with Autotab works without passwords ever leaving your device. Our Secure Sync system allows your cloud runs to authenticate to third party applications using only essential browser cookies and session information. 
+
+We've designed Secure Sync with a zero-knowledge approach to password security: your passwords never leave your device. Only essential browser cookies and session information are transferred, and this data is encrypted before transmission and stored in dedicated, isolated storage volumes, ensuring complete isolation under all circumstances.
+
+### Inputs & Secrets
+
+All inputs to your skill, whether provided through the Autotab App or though our API, are encrypted and transmitted directly to the skill's execution environment without passing through Autotab's central servers. This architecture ensures that your data remains inaccessible to Autotab employees.
+
+You may also pass secrets as input parameters. During runs, secrets are never logged, and never included in model inference steps.
+
+# Secure Skill Execution
+
+## Access Control
+Autotab implements a robust access control mechanism for skill execution, utilizing cryptographically secure tokens uniquely tied to each user account. These tokens are stored in a highly secure environment isolated from our main infrastructure, protecting them from potential breaches.
+
+## User Interaction Privacy
+Your interactions with running skills are transmitted directly to the execution environment, circumventing the Autotab servers. This approach guarantees that your inputs, as well as the data processed by the skill, remain private and are not logged or stored by our systems.
+
+
+# Portal Connection Security
+
+Autotab employs a fortified proxy service to manage all communications through the Portal. Each runner is paired with a dedicated proxy that rigorously validates and authenticates incoming and outgoing messages, adhering to stringent security protocols and rejecting non-compliant communications.
+
+For video streaming features, we collaborate with leading providers that maintain high standards of security, including SOC 2 and ISO 27001 certifications. Although continuous video feeds are not retained, we periodically capture screenshots to support our video replay functionality, allowing for thorough review and auditing of past sessions.
+
+# Data Retention
+
+Autotab retains only the most recent browser session to facilitate seamless access to web services through skills invoked via the Autotab API. This session data is encrypted in transit and at rest, and securely isolated from both the primary Autotab service and Autotab personnel. When a new session is uploaded, the previous session data is overwritten and permanently discarded. All other data generated during cloud-based skill execution is stored temporarily and treated as ephemeral, being securely erased at the conclusion of the skill's operation.
+
+This comprehensive approach to security ensures that Autotab provides a safe, reliable platform for automating and managing your digital tasks with utmost privacy and security.
