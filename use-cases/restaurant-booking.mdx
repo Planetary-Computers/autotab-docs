@@ -1,0 +1,33 @@
+---
+title: "Restaurant Booking"
+description: "Autotab can extract and update data in partners' systems, e.g. RMS for a restaurant, or an insurance portal"
+---
+
+Autotab is great at moving data between systems. For instance, Autotab can extract information from an insurance portal, e.g. payment history or prior authorizations.
+
+In this example, Autotab is getting a list of reservations to make from a Google Sheet. It then goes to OpenTable and makes each reservation 1 by 1, confirming that each reservation was made successfully before moving on to the next one.
+
+export const EmbeddedVideo = ({ children, url }) => (
+  <div
+    style={{
+      position: "relative",
+      paddingBottom: "62.456140350877185%",
+      height: 0,
+      marginBottom: "var(--ifm-leading)",
+    }}
+  >
+    {children}
+    <iframe
+      src={url}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    ></iframe>
+  </div>
+);
+
+<EmbeddedVideo url="https://www.loom.com/embed/546deaafe2a84a83858d3829591b7ca9?sid=1f918659-231f-4909-aafe-14b30e42afac"></EmbeddedVideo>
