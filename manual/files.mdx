@@ -1,0 +1,34 @@
+---
+title: "Files"
+description: "Upload and download files."
+icon: "file"
+---
+
+Autotab can upload and download any type of file.
+
+It can also create CSV and Excel files from scratchpad data, and then upload those to Google Sheets, Dropbox, OneDrive, etc.
+
+export const EmbeddedVideo = ({ children, url }) => (
+  <div
+    style={{
+      position: "relative",
+      paddingBottom: "62.456140350877185%",
+      height: 0,
+      marginBottom: "var(--ifm-leading)",
+    }}
+  >
+    {children}
+    <iframe
+      src={url}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+      }}
+    ></iframe>
+  </div>
+);
+
+<EmbeddedVideo url="https://www.loom.com/embed/9d6e3f6e1b7e4d69b87ca920f8447eb4?sid=88314e23-9102-412b-90ae-06abe156be86"></EmbeddedVideo>
