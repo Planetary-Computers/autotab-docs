@@ -48,19 +48,26 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction"
+        "introduction",
+        "overview"
       ]
     },
     {
-      "group": "Core Concepts",
+      "group": "Key Concepts",
       "pages": [
         "manual/loops",
         "manual/inputs",
         "manual/scratchpad",
         "manual/gsheets",
         "manual/conditionals",
-        "manual/instruct",
+        "manual/agent",
         "manual/smart"
+      ]
+    },
+    {
+      "group": "Use Cases",
+      "pages": [
+        "use-cases/employee-onboarding"
       ]
     },
     {

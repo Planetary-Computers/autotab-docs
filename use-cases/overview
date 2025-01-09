@@ -1,0 +1,19 @@
+---
+title: "Use Cases Overview"
+description: "Autotab excels at tasks that are repetitive, involve using multiple apps, and don't require too much context to do well."
+---
+
+Autotab is becoming more capable every day. If you're just getting started with Autotab, here are some examples of the types of tasks that are easiest to start with:
+
+- **Repetitive tasks**: Tasks that are repetitive are great because you can show Autotab how to do them once and then let it run them as many times as needed.
+- **Tasks that involve using multiple apps**: Autotab uses a browser to perform tasks, so it can easily interact with multiple apps (e.g. cross-reference, copy/paste, etc. across apps).
+- **Tasks with simple context**: It's easiest to get started with tasks where Autotab can quickly understand the context needed to perform the task well.
+
+<CardGroup cols={2}>
+  <Card title="Employee Onboarding" icon="chalkboard-user" href="/use-cases/employee-onboarding">
+    Onboarding new employees
+  </Card>
+  <Card title="Updating Inventory" icon="boxes" href="/use-cases/inventory-update">
+    Updating inventory in a CMS
+  </Card>
+</CardGroup>
