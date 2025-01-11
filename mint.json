@@ -67,7 +67,7 @@
     {
       "group": "Use Cases",
       "pages": [
-        "use-cases/overview",
+        "use-cases/over-view",
         "use-cases/employee-onboarding",
         "use-cases/inventory-update",
         "use-cases/restaurant-booking",
