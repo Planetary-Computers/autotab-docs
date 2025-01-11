@@ -67,7 +67,11 @@
     {
       "group": "Use Cases",
       "pages": [
-        "use-cases/employee-onboarding"
+        "use-cases/overview",
+        "use-cases/employee-onboarding",
+        "use-cases/inventory-update",
+        "use-cases/restaurant-booking",
+        "use-cases/extracting-leads"
       ]
     },
     {
