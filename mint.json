@@ -61,7 +61,8 @@
         "manual/gsheets",
         "manual/conditionals",
         "manual/agent",
-        "manual/smart"
+        "manual/smart",
+        "manual/session"
       ]
     },
     {
