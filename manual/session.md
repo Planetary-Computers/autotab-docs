@@ -12,7 +12,7 @@ Session is the term used to describe data that is stored on your device by websi
 
 Autotab can securely sync your local session to your isolated cloud run environment, which allows Autotab to run without needing to re-login to most websites.
 
-If you don't want to sync your session, or you need Autotab to access a site that requires you to log in every time, you can securely give Autotab access to the login credentials using [Secrets](manual/inputs#secrets).
+If you don't want to sync your session, or you need Autotab to access a site that requires you to log in every time, you can securely give Autotab access to the login credentials using [Secrets](inputs#secrets).
 
 # How to Sync
 
