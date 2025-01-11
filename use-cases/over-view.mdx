@@ -1,5 +1,5 @@
 ---
-title: "Use Cases Overview"
+title: "Overview"
 description: "Autotab excels at tasks that are repetitive, involve using multiple apps, and don't require too much context to do well."
 ---
 
