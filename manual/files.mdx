@@ -4,9 +4,26 @@ description: "Upload and download files."
 icon: "file"
 ---
 
-Autotab can upload and download any type of file.
+Autotab can upload and download any type of file. It automatically tracks files downloaded in the
+[scratchpad](/manual/scratchpad) and makes them available to later steps to read or upload elsewhere.
 
 It can also create CSV and Excel files from scratchpad data, and then upload those to Google Sheets, Dropbox, OneDrive, etc.
+
+## Downloading Files
+
+If have a file available on your device, the easiest way to have Autotab access it is to upload it to a storage service like Google Drive or Dropbox.
+
+Any click that causes a file to download will automatically be recognized by Autotab.
+
+## Reading Files
+
+Certain types of files can be opened by Autotab internally, making their contents available to later steps.
+Currently, Autotab can open CSV and text files, with support for PDF and Excel files coming soon.
+
+## Uploading Files
+
+Once Autotab has downloaded a file, just record yourself uploading it the way you normally would.
+Autotab will automatically ask you which of the available files you want to upload.
 
 export const EmbeddedVideo = ({ children, url }) => (
   <div
