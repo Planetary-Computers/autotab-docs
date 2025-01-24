@@ -53,15 +53,16 @@
       ]
     },
     {
-      "group": "Key Concepts",
+      "group": "Capabilities",
       "pages": [
-        "manual/loops",
         "manual/inputs",
         "manual/scratchpad",
-        "manual/gsheets",
+        "manual/loops",
         "manual/conditionals",
         "manual/agent",
         "manual/smart",
+        "manual/files",
+        "manual/gsheets",
         "manual/session"
       ]
     },
