@@ -1,0 +1,99 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Autotab Documentation",
+  "colors": {
+    "primary": "#4A5DFF",
+    "light": "#6B7DFF",
+    "dark": "#3442B2"
+  },
+  "favicon": "/logo.png",
+  "navigation": {
+    "anchors": [
+      {
+        "anchor": "Documentation",
+        "icon": "book-open",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "overview"
+            ]
+          },
+          {
+            "group": "Capabilities",
+            "pages": [
+              "manual/inputs",
+              "manual/scratchpad",
+              "manual/loops",
+              "manual/conditionals",
+              "manual/agent",
+              "manual/smart",
+              "manual/file",
+              "manual/gsheets",
+              "manual/session"
+            ]
+          },
+          {
+            "group": "Use Cases",
+            "pages": [
+              "use-cases/over-view",
+              "use-cases/employee-onboarding",
+              "use-cases/inventory-update",
+              "use-cases/restaurant-booking",
+              "use-cases/extracting-leads"
+            ]
+          },
+          {
+            "group": "Security",
+            "pages": [
+              "manual/security"
+            ]
+          }
+        ]
+      },
+      {
+        "anchor": "API Reference",
+        "openapi": {
+          "source": "/openapi/.openapi.json",
+          "directory": "api-reference"
+        },
+        "icon": "square-terminal",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "pages": [
+              "api-reference/quickstart",
+              "api-reference/webhooks"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/autotab-light.svg",
+    "dark": "/logo/autotab.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:support@autotab.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Download App",
+      "href": "https://autotab.com"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/autotabai",
+      "github": "https://github.com/planetary-computers",
+      "linkedin": "https://linkedin.com/company/autotab-ai"
+    }
+  }
+}
