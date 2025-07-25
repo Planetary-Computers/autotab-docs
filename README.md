@@ -22,9 +22,11 @@ Run the following command at the root of your documentation (where mint.json is)
 mintlify dev
 ```
 
-### Publishing Changes
+### Publishing
 
-Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
+NOTE: Be sure to use `scripts/add_code_samples.py` to update code samples in the docs.
+
+Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard.
 
 #### Troubleshooting
 

@@ -3,7 +3,7 @@
     "info": {
         "title": "Autotab API",
         "description": "AI that does your repetitive work end to end, with superhuman reliability.",
-        "version": "0.0.1"
+        "version": "0.0.2"
     },
     "servers": [
         {
@@ -85,7 +85,7 @@
                     "Run"
                 ],
                 "summary": "List",
-                "operationId": "list",
+                "operationId": "list_runs",
                 "security": [
                     {
                         "HTTPBearer": []
@@ -142,7 +142,7 @@
                                     "items": {
                                         "$ref": "#/components/schemas/RunSession"
                                     },
-                                    "title": "Response List"
+                                    "title": "Response List Runs"
                                 }
                             }
                         }
@@ -179,7 +179,7 @@
                     "Run"
                 ],
                 "summary": "Retrieve",
-                "operationId": "retrieve",
+                "operationId": "retrieve_run",
                 "security": [
                     {
                         "HTTPBearer": []
@@ -204,13 +204,13 @@
                                 "schema": {
                                     "anyOf": [
                                         {
-                                            "$ref": "#/components/schemas/RunSessionWithData"
+                                            "$ref": "#/components/schemas/RunSession"
                                         },
                                         {
                                             "type": "null"
                                         }
                                     ],
-                                    "title": "Response Retrieve"
+                                    "title": "Response Retrieve Run"
                                 }
                             }
                         }
@@ -309,13 +309,81 @@
                 ]
             }
         },
+        "/run/{id}/video_url": {
+            "get": {
+                "tags": [
+                    "Run"
+                ],
+                "summary": "Video Url",
+                "operationId": "video_url",
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ],
+                                    "title": "Response Video Url"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-codeSamples": [
+                    {
+                        "lang": "Javascript",
+                        "source": "\nimport { Configuration, RunApi } from 'autotab';\n\nconst runClient = new RunApi(new Configuration({\n    apiKey: process.env['AUTOTAB_API_KEY'],\n}));\n\nasync function main() {\n  const runs = await runClient.list();\n  console.log(\"runs:\", runs);\n}\n\nmain();"
+                    },
+                    {
+                        "lang": "Python",
+                        "source": "import autotab\nfrom autotab.rest import ApiException\nfrom pprint import pprint\n\n\nclient = autotab.Client(\n    autotab.Configuration(\n        api_key = os.environ[\"AUTOTAB_API_KEY\"]\n    )\n)\n\nruns = await autotab.RunApi(client).list()\n"
+                    }
+                ]
+            }
+        },
         "/skill/list": {
             "get": {
                 "tags": [
                     "Skill"
                 ],
                 "summary": "List",
-                "operationId": "list",
+                "operationId": "list_skills",
                 "responses": {
                     "200": {
                         "description": "Successful Response",
@@ -326,7 +394,7 @@
                                         "$ref": "#/components/schemas/Skill"
                                     },
                                     "type": "array",
-                                    "title": "Response List"
+                                    "title": "Response List Skills"
                                 }
                             }
                         }
@@ -358,7 +426,7 @@
                     "Skill"
                 ],
                 "summary": "Retrieve",
-                "operationId": "retrieve",
+                "operationId": "retrieve_skill",
                 "security": [
                     {
                         "HTTPBearer": []
@@ -389,7 +457,7 @@
                                             "type": "null"
                                         }
                                     ],
-                                    "title": "Response Retrieve"
+                                    "title": "Response Retrieve Skill"
                                 }
                             }
                         }
@@ -500,86 +568,16 @@
                         "format": "date-time",
                         "title": "Start Time"
                     },
-                    "end_time": {
+                    "name": {
                         "anyOf": [
                             {
-                                "type": "string",
-                                "format": "date-time"
+                                "type": "string"
                             },
                             {
                                 "type": "null"
                             }
                         ],
-                        "title": "End Time"
-                    },
-                    "state": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/components/schemas/RunSessionState"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "id",
-                    "skill_id",
-                    "owner",
-                    "created_at",
-                    "environment",
-                    "start_time"
-                ],
-                "title": "RunSession"
-            },
-            "RunSessionState": {
-                "type": "string",
-                "enum": [
-                    "play",
-                    "pause",
-                    "finish",
-                    "reset",
-                    "cancel",
-                    "timeout",
-                    "editing"
-                ],
-                "title": "RunSessionState"
-            },
-            "RunSessionWithData": {
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "title": "Id"
-                    },
-                    "skill_id": {
-                        "type": "string",
-                        "title": "Skill Id"
-                    },
-                    "owner": {
-                        "type": "string",
-                        "title": "Owner"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "title": "Created At"
-                    },
-                    "environment": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/components/schemas/Environment"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
-                    },
-                    "start_time": {
-                        "type": "string",
-                        "format": "date-time",
-                        "title": "Start Time"
+                        "title": "Name"
                     },
                     "end_time": {
                         "anyOf": [
@@ -624,6 +622,17 @@
                             }
                         ],
                         "title": "Data"
+                    },
+                    "video_url": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Video Url"
                     }
                 },
                 "type": "object",
@@ -635,7 +644,20 @@
                     "environment",
                     "start_time"
                 ],
-                "title": "RunSessionWithData"
+                "title": "RunSession"
+            },
+            "RunSessionState": {
+                "type": "string",
+                "enum": [
+                    "play",
+                    "pause",
+                    "finish",
+                    "reset",
+                    "cancel",
+                    "timeout",
+                    "editing"
+                ],
+                "title": "RunSessionState"
             },
             "RunSkillRequest": {
                 "properties": {
@@ -767,7 +789,8 @@
                     "array",
                     "object",
                     "file",
-                    "tab"
+                    "tab",
+                    "ref"
                 ],
                 "title": "VariableDataType"
             }
